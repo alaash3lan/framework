@@ -1,7 +1,9 @@
 <?php
 namespace Core;
-use Core\Request\Request;
+
 use Core\AppReflector;
+use Core\Http\Request;
+
 class Route
 {   
     public $routes = [];
@@ -35,7 +37,8 @@ class Route
      * @return void
      */
     public function load()
-    {
+    {   
+        // pred($this->routes);
         foreach ($this->routes as  $route) {
             if($this->isMatching($route)){
                 return $this->controllerTriger($route[2]);         
@@ -95,16 +98,14 @@ class Route
      */
     public function controllerTriger($action)
     {
-      $controller = explode("@",$action);
-      $class = $controller[0];
-      $classFunction = $controller[1];     
+      list($class,$classFunction) = explode("@",$action);
       $classNamespace = "App\Controllers\{$class}";
       $classNamespace = str_replace(["{","}"],"",$classNamespace);
       $app = new AppReflector($classNamespace);
       $params =  $app->getMethodParams($classFunction);
       $arg = [];
       foreach ($params as $param) {
-         array_push($arg,new $param());
+        $arg[] = new $param;
       }
       call_user_func_array(array($classNamespace,$classFunction,),$arg);
       

@@ -1,7 +1,7 @@
 <?php
-namespace Core\Request;
+namespace Core\Http;
 use HZ\Contracts\Http\RequestInterface ;
-use Core\Request\RequestValidation;
+use Core\Http\Validator;
 
 class Request
 {
@@ -59,8 +59,8 @@ class Request
      */
     public function route(): string
     {
-        $root = substr($_SERVER["SCRIPT_NAME"],0,5);
-        return str_replace($root,"",$_SERVER["REQUEST_URI"]);
+        $root = str_replace("/index.php","",$_SERVER["SCRIPT_NAME"]);
+        return  str_replace($root,"",$_SERVER["REQUEST_URI"]); 
     }
 
     /**
@@ -75,18 +75,19 @@ class Request
     public function validate(array $rules):? array
     {   
         $errors = [];
+        $validator = new Validator();
 
         foreach ($rules as $key => $value) {
-            $values = explode("/",$value);
+            $values = explode("|",$value);
             
             foreach ($values as $rule) {
                 if(strpos($rule,":")){
                     $array = explode(":",$rule);
                     $ruleMethod = $array[0];
-                    if($error = RequestValidation::$ruleMethod($key,$this->post($key),$array[1])){
+                    if($error = $validator->$ruleMethod($key,$this->post($key),$array[1])){
                           $errors[]= $error;
                     }
-                } elseif($error = RequestValidation::$ruleMethod($key,$this->post($key))){
+                } elseif($error = $validator->$rule($key,$this->post($key))){
                     $errors[]= $error;
                 }
             }           

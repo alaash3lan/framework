@@ -28,7 +28,11 @@ Class Connection {
 
  
 
-     
+    /**
+     * instantiate new PDO function
+     *
+     * @return void
+     */
     public function openConnection() 
     {
         try{

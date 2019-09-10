@@ -71,7 +71,7 @@ a {
 
 <form action="/oop/home" method="POST" >
   <div class="container">
-  User ID : <input type = "text" name = "email" />
+  User email : <input type = "email" name = "email" />
 
 <br/><br/>
     <label for="psw"><b>Password</b></label>

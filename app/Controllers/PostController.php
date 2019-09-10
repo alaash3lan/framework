@@ -5,7 +5,7 @@ use Core\Request;
 class PostController extends Controller {
 
     public  function index()
-    {         
+    {        
         view("index","alaa");
     }
     public  function create(Request $request)
