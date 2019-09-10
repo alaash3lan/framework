@@ -21,7 +21,7 @@ class DB
     */
    private function startConnection()
    {
-      $connection = new Connection();
+      $connection = Connection::getInstance();
       $this->pdo = $connection->openConnection();
       
    }

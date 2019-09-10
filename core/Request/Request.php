@@ -3,7 +3,7 @@ namespace Core\Request;
 use HZ\Contracts\Http\RequestInterface ;
 use Core\Request\RequestValidation;
 
-class Request implements RequestInterface
+class Request
 {
     /**
      * Get value from the query parameters ie from _GET global variable

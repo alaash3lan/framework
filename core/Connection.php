@@ -43,6 +43,3 @@ Class Connection {
          $this->connection = null;
       }
 }
-$e = Connection::getInstance();
-$c = Connection::getInstance();
-var_dump(serialize($c->openConnection()));
