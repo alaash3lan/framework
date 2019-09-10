@@ -3,8 +3,8 @@ use Core\Request;
 
 function redirect($url)
 {
-    // print_r("{$_SERVER['SERVER_NAME']}/oop{$url}");
-    header("Location: /oop{$url}");
+    $root = str_replace("/index.php","",$_SERVER["SCRIPT_NAME"]);
+    header("Location: {$root}/{$url}");
     die();
 }
 
