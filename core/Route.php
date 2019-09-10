@@ -7,6 +7,8 @@ use Core\Http\Request;
 class Route
 {   
     public $routes = [];
+    public $root ;
+    public $currentUrl;
 
      /**
      * Construct  of the class
@@ -15,7 +17,26 @@ class Route
     public function __construct()
     {
         $this->request = new Request();
+        $this->root = str_replace("/index.php","",$_SERVER["SCRIPT_NAME"]);
+        $this->currentUrl =  $this->request->url();
+        // pred($this->root);
+        // pred($this->currentUrl);
     }
+    
+
+    /**
+     * get current route
+     *
+     * @return string
+     */
+    private function CurrentRoute(): string
+    {
+        return  str_replace($this->root,"",$this->currentUrl); 
+    }
+    
+  
+
+    
     
     /**
      * add route to array of the routes of the app 
@@ -58,7 +79,7 @@ class Route
     public function isMatching(array $route)
     {
       $pattern =  $this->generatePattern($route[1]);
-      return $_SERVER['REQUEST_METHOD'] == strtoupper($route[0]) & preg_match($pattern, $this->request->route());
+      return $_SERVER['REQUEST_METHOD'] == strtoupper($route[0]) & preg_match($pattern, $this->CurrentRoute());
     }
 
 

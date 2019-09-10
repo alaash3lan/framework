@@ -8,8 +8,7 @@ function redirect($url)
     die();
 }
 
-function view(string $path , $data = null) {
-        
+function view(string $path , $data = null) {       
     require "./static/views/".$path.".php";
 }
 

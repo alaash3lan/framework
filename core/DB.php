@@ -4,10 +4,14 @@ use Core\Connection;
 class DB 
 {
 
-    public  $pdo;
+    public $pdo;
     public $tableName;
     public $key;
     public $keyValue;
+
+    /**
+     * construct start connection 
+     */
     public function __construct() 
     {
        $this->startConnection();
@@ -40,7 +44,7 @@ class DB
    
 
    /**
-    * add a key and it's value for record function
+    * add a key and it's value for record 
     *
     * @param string $key
     * @param [mixed] $value

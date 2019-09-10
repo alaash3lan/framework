@@ -17,6 +17,16 @@ class Request
         return $this->getValueFromVariable($_GET,$key);   
     }
 
+     /**
+     * get the current url
+     * return string
+     */
+    public function url():string
+    {
+        return $_SERVER["REQUEST_URI"] ;   
+    }
+
+
     /**
      * Get value from the request body ie from _POST global variable
      * If not exists, return null
