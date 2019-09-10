@@ -9,5 +9,4 @@
 ---------------------------------------------------------
 ### Class DB (database)
 [Database doc](/docs/Database.md)
-# framework
-# framework
+

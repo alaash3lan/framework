@@ -13,18 +13,39 @@ class DB
        $this->startConnection();
     }
 
+
+   /**
+    * call openConnection function from Connection class 
+    *
+    * @return void
+    */
    private function startConnection()
    {
       $connection = new Connection();
       $this->pdo = $connection->openConnection();
       
    }
+
+   /**
+    * Add the name of table to object
+    *
+    * @param string $name
+    * @return void
+    */
    public function table(string $name)
    {
        $this->tableName = $name;
        return $this;
    }
+   
 
+   /**
+    * add a key and it's value for record function
+    *
+    * @param string $key
+    * @param [mixed] $value
+    * @return DB
+    */
    public function where(string $key, $value)
    {
        $this->key = $key;
