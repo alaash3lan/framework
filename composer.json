@@ -1,0 +1,12 @@
+{
+    "autoload": {
+      "psr-4": {
+        "App\\": "app",
+        "Core\\": "core"
+       
+      }
+    },
+    "require": {
+        "hassanzohdy/php-contracts": "^1.0"
+    }
+}
