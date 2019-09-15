@@ -1,8 +1,7 @@
 <?php
-require_once('vendor/autoload.php');
-require_once('core/helpers.php');
-use Core\App;
+require_once "vendor/autoload.php" ;
+require_once "core/helpers.php";
+require_once "bootstrap.php";
 
-$app = new App();
-require_once('routes/route.php');
+require_once 'routes/route.php' ;
 $app->router->load();

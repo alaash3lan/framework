@@ -12,15 +12,19 @@ function view(string $path , $data = null) {
     require "./static/views/".$path.".php";
 }
 
- function pred($data)
+/**
+ * print variable then stop the app
+ *
+ * @param [mixed] $data
+ * @return void
+ */
+function pred(...$data)
 {
     echo '<pre>';
     print_r($data);
     echo '</pre>';
     die;
 }
-
-
 
 
 

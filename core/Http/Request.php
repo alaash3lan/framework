@@ -126,4 +126,13 @@ class Request
         }
         return null;
     }
+
+
+    /**
+     * 
+     */
+    public function data()
+    {
+      return $_REQUEST;
+    }
 }

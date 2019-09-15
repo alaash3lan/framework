@@ -69,17 +69,15 @@ a {
 </head>
 <body>
 
-<form action="/oop/home" method="POST" >
-  <div class="container">
-  User email : <input type = "email" name = "email" />
+<form action="/framework/home" method="POST" >
 
-<br/><br/>
+<?php echo $name;?>
+  <div class="container">
+  Username : <input type = "text" name = "username" />
+
+    <br/><br/>
     <label for="psw"><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="psw" >
-
-    Select image to upload:
-    <input type="file" name="fileToUpload" id="fileToUpload">
-
     <button type="submit" class="registerbtn">Register</button>
   </div>
   
