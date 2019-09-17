@@ -92,7 +92,6 @@ class Session implements SessionInterface
         //    return $_SESSION[$key];            
         // }
         // return $_SESSION[$key] = $default;
-        
        return $_SESSION[$key] === null ? $_SESSION[$key] =  $default :$_SESSION[$key];
 
     }
