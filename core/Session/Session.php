@@ -1,16 +1,21 @@
 <?php
 namespace Core\Http\Session;
 use HZ\Contracts\Storage\SessionInterface;
+
 class Session implements SessionInterface
 {
-
-    public function __construct() {
+    /**
+     * calling start  function
+     * return void
+     */
+    public function __construct() 
+    {
         $this->start();
     }
     /**
      * start the session 
      * @return void
-     */
+    */
     public function start()
     {
         if (session_status() !== PHP_SESSION_ACTIVE) session_start();
@@ -36,8 +41,7 @@ class Session implements SessionInterface
      */
     public function store(string $key,$value)
     {
-       $_SESSION[$key] = $value;
-      
+       $_SESSION[$key] = $value; 
     }
     
     /**
@@ -47,10 +51,7 @@ class Session implements SessionInterface
      * @param string $key
      * @return mixed
      */
-    // public function get(string $key)
-    // {
-    //    return $_SESSION[$key];
-    // }
+
 
     /**
      * Set new value to the container
@@ -72,8 +73,7 @@ class Session implements SessionInterface
      */
     public function has(string $key): bool
     {
-        return isset($_SESSION[$key]);
-        
+        return isset($_SESSION[$key]);   
     }
 
         
@@ -92,7 +92,6 @@ class Session implements SessionInterface
            return $_SESSION[$key];            
         }
         return $_SESSION[$key] = $default;
-      
     }
     
     /**
