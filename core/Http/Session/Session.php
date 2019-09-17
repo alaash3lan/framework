@@ -87,13 +87,12 @@ class Session implements SessionInterface
      */
     public function get(string $key, $default = null)
     {
-        // if($this->has($key))
-        // {
-        //    return $_SESSION[$key];            
-        // }
-        // return $_SESSION[$key] = $default;
-       return $_SESSION[$key] === null ? $_SESSION[$key] =  $default :$_SESSION[$key];
-
+        if($this->has($key))
+        {
+           return $_SESSION[$key];            
+        }
+        return $_SESSION[$key] = $default;
+      
     }
     
     /**
