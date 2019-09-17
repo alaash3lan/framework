@@ -45,14 +45,6 @@ class Session implements SessionInterface
         $_SESSION[$key] = $value; 
     }
     
-    /**
-     * get value stored in session by given name of session and key of the value
-     *
-     * @param string $sessionName
-     * @param string $key
-     * @return mixed
-     */
-
 
     /**
      * Set new value to the container
@@ -88,7 +80,7 @@ class Session implements SessionInterface
      */
     public function get(string $key, $default = null)
     {
-        if($this->has($key))
+        if($this->has($key)&& empty($_SESSION[$key]))
         {
             return $_SESSION[$key];            
         }
