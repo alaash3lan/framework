@@ -10,7 +10,7 @@ class HomeController extends Controller
     public  function index(Request $request)
     {   
         $session = new Session();
-        print($_SESSION["name"]);
+        
         //  pred($session->get("userData","username"));
         //  view("index","name");
     }
@@ -18,6 +18,7 @@ class HomeController extends Controller
     {      
         // // print $_SESSION["userId"];
         $session = new Session();
+       print $session->get("alaa","name");
         // $session->destroy();
         // $session->store("name", "alaa");
         // print $_SESSION["name"];

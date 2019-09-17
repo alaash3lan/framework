@@ -80,8 +80,8 @@ class Session implements SessionInterface
      * @return  mixed
      */
     public function get(string $key, $default = null)
-    {        
-       return $this->has($key) ? $_SESSION[$key] : $default;
+    {   
+       return $_SESSION[$key] ?? $default;       
     }
     
     /**
