@@ -2,7 +2,7 @@
 namespace App\Controllers;
 use App\Controllers\Controller;
 use Core\Http\Request;
-use Core\Http\Session;
+use Core\Http\Session\Session;
 
 class HomeController extends Controller
  {
@@ -18,14 +18,24 @@ class HomeController extends Controller
     public  function test(Request $request)
     {   
         
-        // print $_SESSION["userId"];
+        
+        // // print $_SESSION["userId"];
         $session = new Session();
-        $session->end();
+        $session->destroy();
+        var_dump($session->all());
+        // if ($session->has("username"))
+        // {
+        //     print "okaaay";
+        // }
+        
+        // $session->remove("username");
+        // print  $session->get("username");
         
         
-        $data = ["name" => "alaa","id"=>7];
-        $session->store("sessionOne",$data);
-        print_r($session->get("sessionOne"));
+        
+        // $data = ["name" => "alaa","id"=>7];
+        // $session->store("sessionOne",$data);
+        // print_r($session->get("sessionOne"));
         
 
         
