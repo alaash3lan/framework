@@ -18,8 +18,12 @@ class HomeController extends Controller
     {      
         // // print $_SESSION["userId"];
         $session = new Session();
-        $session->destroy();
-        var_dump($session->all());
+        // $session->destroy();
+        // $session->store("name", "alaa");
+        // print $_SESSION["name"];
+       
+
+        // var_dump($session->all());
         // if ($session->has("username"))
         // {
         //     print "okaaay";

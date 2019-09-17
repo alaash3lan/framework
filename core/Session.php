@@ -46,7 +46,7 @@ class Session implements SessionInterface
     }
     
 
-    
+
     /**
      * Set new value to the container
      * 
@@ -79,13 +79,18 @@ class Session implements SessionInterface
      * @param   mixed $default
      * @return  mixed
      */
-    public function get(string $key, $default = null)
+    public function get(string $key, $default = "deafault id")
     {
-        if($this->has($key)&& empty($_SESSION[$key]))
-        {
-            return $_SESSION[$key];            
+        // if ($this->has($key) && !empty($_SESSION[$key])) {
+        //     return $_SESSION[$key] = $default;
+        // }
+        // return $_SESSION[$key];    
+        
+        if ($this->has($key) && !empty($_SESSION[$key])){
+           return $_SESSION[$key];
         }
-        return $_SESSION[$key] = $default;
+        $this->store($key,$default);
+        return $_SESSION[$key];
     }
     
     /**
