@@ -13,7 +13,7 @@ class AppReflector
      *
      * @param [string] $class
      */
-    public function __construct($strign)
+    public function __construct($class)
     {
        $this->reflectionClass =  new ReflectionClass($class);
     }

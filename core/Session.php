@@ -1,5 +1,5 @@
 <?php
-namespace Core\Http\Session;
+namespace Core;
 use HZ\Contracts\Storage\SessionInterface;
 
 class Session implements SessionInterface

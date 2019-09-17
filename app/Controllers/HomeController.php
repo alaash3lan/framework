@@ -2,13 +2,12 @@
 namespace App\Controllers;
 use App\Controllers\Controller;
 use Core\Http\Request;
-use Core\Http\Session\Session;
+use Core\Session;
 
 class HomeController extends Controller
  {
     
     public  function index(Request $request)
-
     {   
         $session = new Session();
         print($_SESSION["name"]);
