@@ -46,6 +46,7 @@ class Session implements SessionInterface
     }
     
 
+    
     /**
      * Set new value to the container
      * 
