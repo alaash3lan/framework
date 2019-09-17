@@ -80,17 +80,9 @@ class Session implements SessionInterface
      * @return  mixed
      */
     public function get(string $key, $default = "deafault id")
-    {
-        // if ($this->has($key) && !empty($_SESSION[$key])) {
-        //     return $_SESSION[$key] = $default;
-        // }
-        // return $_SESSION[$key];    
-        
-        if ($this->has($key) && !empty($_SESSION[$key])){
-           return $_SESSION[$key];
-        }
-        $this->store($key,$default);
-        return $_SESSION[$key];
+    {        
+        if ($this->has($key)) return $_SESSION[$key];
+        return $default;
     }
     
     /**
