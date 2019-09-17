@@ -16,9 +16,7 @@ class HomeController extends Controller
         //  view("index","name");
     }
     public  function test(Request $request)
-    {   
-        
-        
+    {      
         // // print $_SESSION["userId"];
         $session = new Session();
         $session->destroy();
@@ -36,9 +34,7 @@ class HomeController extends Controller
         // $data = ["name" => "alaa","id"=>7];
         // $session->store("sessionOne",$data);
         // print_r($session->get("sessionOne"));
-        
-
-        
+       
     }
 }
 

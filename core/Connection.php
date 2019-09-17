@@ -16,33 +16,40 @@ Class Connection {
     {
         // Private to disabled instantiation.
     }
+    
 
+    /**
+     * check if there is no instance of Connection class 
+     * then make new instance if no one exist
+     * used for singleton pattern
+     *
+     * @return void
+     */
     public static function getInstance()
     {
-        if (is_null(static::$instance)) {
-            static::$instance = new Connection;
-        }
-        print "111";
+        if (is_null(static::$instance)) static::$instance = new Connection;
         return static::$instance;
     }
 
  
 
     /**
-     * instantiate new PDO function
+     * instantiate new PDO 
      *
      * @return void
      */
     public function openConnection() 
     {
-        try{
+        try {
                 $this->connection = new PDO($this->server, $this->user,$this->pass,$this->options);
                 return $this->connection;
-            }
-        catch (\PDOException $e) {
+        } catch (\PDOException $e) {
             echo "There is some problem in connection: " . $e->getMessage();
         }
     }
+
+
+
     public function closeConnection() {
          $this->connection = null;
       }

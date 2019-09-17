@@ -117,18 +117,16 @@ class Request
      *
      * @param mixed $variable
      * @param string $key
-     * @return void
+     * @return mixed
      */
     private function getValueFromVariable($variable,string $key)
     {
-        if (isset($variable[$key])){
-            return $variable[$key];
-        }
-        return null;
+        return isset($variable[$key]) ? $variable[$key] : null;
     }
 
 
     /**
+     *  return all request data
      * 
      */
     public function data()

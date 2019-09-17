@@ -8,6 +8,13 @@ function redirect($url)
     die();
 }
 
+/**
+ * view static page
+ *
+ * @param string $path
+ * @param [mixed] $data
+ * @return void
+ */
 function view(string $path , $data = null) {       
     require "./static/views/".$path.".php";
 }

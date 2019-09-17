@@ -12,6 +12,7 @@ class Session implements SessionInterface
     {
         $this->start();
     }
+
     /**
      * start the session 
      * @return void
@@ -41,7 +42,7 @@ class Session implements SessionInterface
      */
     public function store(string $key,$value)
     {
-       $_SESSION[$key] = $value; 
+        $_SESSION[$key] = $value; 
     }
     
     /**
@@ -89,7 +90,7 @@ class Session implements SessionInterface
     {
         if($this->has($key))
         {
-           return $_SESSION[$key];            
+            return $_SESSION[$key];            
         }
         return $_SESSION[$key] = $default;
     }
@@ -112,7 +113,7 @@ class Session implements SessionInterface
      */
     public function remove(string $key)
     {
-        if($this->has($key)) $this->set($key,null);       
+        if($this->has($key)) $this->set($key,null);      
     }
 
    

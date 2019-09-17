@@ -9,6 +9,7 @@ class App
 
     /**
      * construct instantiate route and request
+     * return void
      */
     public function __construct() 
     {

@@ -13,7 +13,7 @@ class Validator
      */
     public function required(string $key,string $value)
     {
-        if (!strlen($value) == 0){
+        if (!strlen($value) == 0) {
             return false;
         }
         return sprintf("%s field Required",$key);        
@@ -28,7 +28,7 @@ class Validator
      */
     public function numeric(string $key,string $value)
     {
-        if (is_numeric($value)){
+        if (is_numeric($value)) {
             return false;
         }
         return sprintf("%s field must be numeric",$key); 
@@ -43,7 +43,7 @@ class Validator
      */
     public function max(string $key,string $value,$num)
     {
-        if (strlen($value) < $num){
+        if (strlen($value) < $num) {
             return false;
         }
         return sprintf("%s maximum characters is %d",$key, $num);     
@@ -59,7 +59,7 @@ class Validator
      */
     public function min(string $key,string $value,$num)
     {
-        if (strlen($value) >= $num){
+        if (strlen($value) >= $num) {
             return false;
         }
         return sprintf("%s minimum characters is %d",$key, $num);    

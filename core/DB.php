@@ -27,7 +27,6 @@ class DB
    {
       $connection = Connection::getInstance();
       $this->pdo = $connection->openConnection();
-      
    }
 
    /**

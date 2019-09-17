@@ -19,8 +19,6 @@ class Route
         $this->request = new Request();
         $this->root = str_replace("/index.php","",$_SERVER["SCRIPT_NAME"]);
         $this->currentUrl =  $this->request->url();
-        // pred($this->root);
-        // pred($this->currentUrl);
     }
     
 
@@ -33,10 +31,7 @@ class Route
     {
         return  str_replace($this->root,"",$this->currentUrl); 
     }
-    
-  
-
-    
+        
     
     /**
      * add route to array of the routes of the app 
@@ -63,9 +58,7 @@ class Route
         foreach ($this->routes as  $route) {
             if($this->isMatching($route)){
                 return $this->controllerTriger($route[2]);         
-            } 
-
-           
+            }           
         }
        return  view("error");
     }
@@ -106,9 +99,9 @@ class Route
      */
     public function getArguments($pattern) :array
     {
-      preg_match($pattern, $this->request->url(),$matches);
-      array_shift($matches);
-      return $matches;
+        preg_match($pattern, $this->request->url(),$matches);
+        array_shift($matches);
+        return $matches;
     }
 
     /**
@@ -119,16 +112,17 @@ class Route
      */
     public function controllerTriger($action)
     {
-      list($class,$classFunction) = explode("@",$action);
-      $classNamespace = "App\Controllers\{$class}";
-      $classNamespace = str_replace(["{","}"],"",$classNamespace);
-      $app = new AppReflector($classNamespace);
-      $params =  $app->getMethodParams($classFunction);
-      $arg = [];
-      foreach ($params as $param) {
-        $arg[] = new $param;
-      }
-      call_user_func_array(array($classNamespace,$classFunction,),$arg);
-      
+        list($class,$classFunction) = explode("@",$action);
+        $classNamespace = "App\Controllers\{$class}";
+        $classNamespace = str_replace(["{","}"],"",$classNamespace);
+        $app = new AppReflector($classNamespace);
+        $params =  $app->getMethodParams($classFunction);
+        $arg = [];
+
+        foreach ($params as $param) {
+            $arg[] = new $param;
+        }
+
+        call_user_func_array(array($classNamespace,$classFunction,),$arg);  
     }
 }
