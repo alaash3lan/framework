@@ -5,6 +5,7 @@ use Core\Http\Validator;
 
 class Request
 {
+    // the current root of app
     public $root;
 
     /**
