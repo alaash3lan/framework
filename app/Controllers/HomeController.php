@@ -16,29 +16,11 @@ class HomeController extends Controller
     }
     public  function test(Request $request)
     {      
-        // // print $_SESSION["userId"];
-        $session = new Session();
-       print $session->get("alaa","name");
-        // $session->destroy();
-        // $session->store("name", "alaa");
-        // print $_SESSION["name"];
-       
-
-        // var_dump($session->all());
-        // if ($session->has("username"))
-        // {
-        //     print "okaaay";
-        // }
+        // $root = str_replace("/index.php","",$_SERVER["SCRIPT_NAME"]);
+        // str_replace($root,"",$_SERVER["REQUEST_URI"]);
         
-        // $session->remove("username");
-        // print  $session->get("username");
-        
-        
-        
-        // $data = ["name" => "alaa","id"=>7];
-        // $session->store("sessionOne",$data);
-        // print_r($session->get("sessionOne"));
-       
+        $string = $_SERVER["SCRIPT_NAME"].$_SERVER["REQUEST_URI"];
+        print $string;
     }
 }
 

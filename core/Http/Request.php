@@ -5,6 +5,17 @@ use Core\Http\Validator;
 
 class Request
 {
+    public $root;
+
+    /**
+     * Request constructor.
+     * @return  void
+     */
+    public function __construct()
+    {
+        $this->root = str_replace("/index.php","",$_SERVER["SCRIPT_NAME"]);
+    }
+
     /**
      * Get value from the query parameters ie from _GET global variable
      * If not exists, return null
@@ -39,11 +50,11 @@ class Request
         return $this->getValueFromVariable($_POST,$key);       
     }
 
-       /**
+    /**
      * Get value from the _SERVER global variable
      * If not exists, return null
-     * 
-     * @param   string $key
+     *
+     * @param string $key
      * @return  mixed
      */
     public function server(string $key)
@@ -69,8 +80,7 @@ class Request
      */
     public function route(): string
     {
-        $root = str_replace("/index.php","",$_SERVER["SCRIPT_NAME"]);
-        return  str_replace($root,"",$_SERVER["REQUEST_URI"]); 
+        return  str_replace($this->root,"",$_SERVER["REQUEST_URI"]);
     }
 
     /**
@@ -121,7 +131,7 @@ class Request
      */
     private function getValueFromVariable($variable,string $key)
     {
-        return isset($variable[$key]) ? $variable[$key] : null;
+        return $variable[$key] ?? $null;
     }
 
 

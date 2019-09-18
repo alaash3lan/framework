@@ -2,7 +2,7 @@
 
 
 $app->router->add("get","/home","HomeController@index");
-$app->router->add("get","/test","HomeController@test");
+$app->router->add("get","/test/first/second/dd","HomeController@test");
 
 
 
