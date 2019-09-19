@@ -1,12 +1,14 @@
 <?php
 namespace Core\Http;
 use HZ\Contracts\Http\RequestInterface ;
+use Core\Session;
 use Core\Http\Validator;
 
-class Request
+class Request implements RequestInterface
 {
     // the current root of app
     public $root;
+    public $session;
 
     /**
      * Request constructor.
@@ -15,6 +17,8 @@ class Request
     public function __construct()
     {
         $this->root = str_replace("/index.php","",$_SERVER["SCRIPT_NAME"]);
+        $this->session = new Session();
+
     }
 
     /**
@@ -143,5 +147,48 @@ class Request
     public function data()
     {
       return $_REQUEST;
+    }
+
+     /**
+     * Check if the container has a value for the given key  
+     * 
+     * @param   string $key
+     * @return  boolean
+     */
+    public function has(string $key): bool
+    {
+        return isset($_REQUEST[$key]);   
+    }
+
+
+    
+
+    /**
+     * Flash the current input to the Session
+     *
+     * @param Type $var
+     * @return void
+     */
+    public function flash()
+    {   
+        $data = $this->data();
+        foreach ($data as $key => $value) {
+           $this->session->store($key,$value);
+        }
+        
+    }
+
+
+    /**
+     * flash only those keys in session 
+     *
+     * @param array $inputs
+     * @return void
+     */
+    public function flashOnly(array $inputs)
+    {
+        foreach ($inputs as $key) {
+            if ($this->has($key)) $this->session->store($key,$this->data()[$key]);
+        }        
     }
 }
