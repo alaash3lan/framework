@@ -3,24 +3,30 @@ namespace App\Controllers;
 use App\Controllers\Controller;
 use Core\Http\Request;
 use Core\Session;
+use Core\Cookie;
 
 class HomeController extends Controller
  {
     
     public  function index(Request $request)
     {   
-        $session = new Session();
+        $c = new Cookie();
+        // $c->set("name","alamo",1200);
+        // print_r($_COOKIE);
+        $c->destroy("name");
+        print_r($_COOKIE);
+
+        // $session = new Session();
         
-        //  pred($session->get("userData","username"));
+        // //  pred($session->get("userData","username"));
         //  view("index","name");
     }
     public  function test(Request $request)
     {      
-        // $root = str_replace("/index.php","",$_SERVER["SCRIPT_NAME"]);
-        // str_replace($root,"",$_SERVER["REQUEST_URI"]);
+        $s = new Session();
+        $request->flashOnly(["username","psw"]);
+       var_dump($s->all());
         
-        $string = $_SERVER["SCRIPT_NAME"].$_SERVER["REQUEST_URI"];
-        print $string;
     }
 }
 
