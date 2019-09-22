@@ -1,23 +1,34 @@
 <?php
 namespace Core;
-
+use HZ\Contracts\Storage\CookieJarInterface;
 class Cookie 
 {
     /**
      * set cookie function
      *
-     * @param string $name
-     * @param string $value
-     * @param integer $expire in seconds
-     * @param string $path default "/"
-     * @return void
+     * @param string  name
+     * @param string  value
+     * @param integer minutes 
+     * @return $this
      */
-    public function set(string $name,string $value,int $expire,string $path ="/")
+    public function set(string $name, string $value, int $minutes) :Cookie
     {
-        $time = time()+ $expire;
-        setcookie($name, $value, $time, $path);
+        $time = time() + $minutes;
+        setcookie($name, $value, $time);
+        return $this;
     }
 
+
+    /**
+     * Check if the cookie has a value for the given key  
+     * 
+     * @param   string $key
+     * @return  boolean
+     */
+    public function has(string $key): bool
+    {
+        return isset($_COOKIE[$key]);
+    }
 
     /**
      * destroy this cookie 
@@ -25,8 +36,35 @@ class Cookie
      * @param string $key
      * @return void
      */
-    public function destroy(string $key)
+    public function remove(string $key)
     {
-        setcookie($key,"", time()-3600);
+        unset($_COOKIE[$key]);
+        setcookie($key,"", 1);
+    }
+
+    /**
+     * Get a value from the storage container
+     * If no value exists for the given key, return the default value instead
+     * 
+     * @param   string $key
+     * @param   mixed $default
+     * @return  mixed
+     */
+    public function get(string $key, $default = null)
+    {
+        return $_COOKIE[$key] ?? $default;
+    }
+
+    /**
+     * Clear all cookies
+     * 
+     * @return void
+     */
+    public function flush()
+    {
+        foreach ($_COOKIE as $key => $value) {
+            $this->remove($key);
+        }
+
     }
 }
