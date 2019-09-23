@@ -10,7 +10,7 @@ class HomeController extends Controller
     
     public  function index(Request $request)
     {   
-        
+
         //  view("index","name");
     }
     public  function test(Request $request)

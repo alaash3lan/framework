@@ -1,7 +1,7 @@
 <?php
 namespace Core;
 use HZ\Contracts\Storage\CookieJarInterface;
-class Cookie 
+class Cookie implements CookieJarInterface
 {
     /**
      * set cookie function
@@ -11,9 +11,9 @@ class Cookie
      * @param integer minutes 
      * @return $this
      */
-    public function set(string $name, string $value, int $minutes) :Cookie
+    public function set(string $name, string $value, int $minutes) :CookieJarInterface
     {
-        $time = time() + $minutes;
+        $time = time() + ($minutes * 60);
         setcookie($name, $value, $time);
         return $this;
     }

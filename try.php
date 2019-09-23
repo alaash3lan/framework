@@ -1,18 +1,39 @@
 <?php
-//     1- add function 'flash' and 'flashOnly' to "Request" class to save inputs itnto session
-//     2- work on cook
-// 
 
-$arr = [
-    'name' => 'alaa',
-    'index2' => 'html',
-    'index3' => 'slide',
-    'age' => '55',
-    
-];
-$options = ["name","age"];
-$session= [];
-foreach ($options as  $key) {
-   $session[] = $arr[$key];
+interface Machine 
+{
+    public function move();
 }
-var_dump($session);
+interface Bus 
+{
+    public function cost();
+}
+
+class SmallBus implements Bus
+{
+    public function cost()
+    {
+       return "smal";
+    }
+}
+
+class Car implements Machine ,Bus
+{
+   public function move()
+   {
+      print "sdsd";
+   }
+   public function cost()
+   {
+       return "30g";
+   }
+}
+ function printOOB(Bus $b)
+{
+   print $b->cost();
+}
+// $car = new Car();
+// $car->cost();
+// $car->move("sdsd");
+$s = new Car();
+printOOB($s);
