@@ -101,7 +101,7 @@ class SecondRoute implements RouterInterface
         return $this;
     }
 
-    
+
     /**
      * add route to array of the routes of the app 
      *
@@ -110,7 +110,7 @@ class SecondRoute implements RouterInterface
      * @param string $action
      * @return void
      */
-    public function add (string $method,string $route,string $action )
+    private function add (string $method,string $route,string $action )
     {   
         $this->routes[]= [$method,$route,$action];
     }
@@ -150,7 +150,7 @@ class SecondRoute implements RouterInterface
      * @param array $route
      * @return boolean
      */
-    public function isMatching(array $route)
+    private function isMatching(array $route)
     {
       $pattern =  $this->generateRoutePattern($route[1]);
       return $_SERVER['REQUEST_METHOD'] == strtoupper($route[0]) & preg_match($pattern, $this->CurrentRoute());
@@ -191,7 +191,7 @@ class SecondRoute implements RouterInterface
      * @param [type] $action
      * @return void
      */
-    public function controllerTriger($action)
+    private function controllerTriger($action)
     {
         list($class,$classFunction) = explode("@",$action);
         $classNamespace = "App\Controllers\{$class}";
