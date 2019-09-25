@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "hassanzohdy/php-contracts",
-            "version": "1.0.10",
+            "version": "1.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hassanzohdy/php-contracts.git",
-                "reference": "9d63f2b83e1d042b04075a3deab953e27f5a61ad"
+                "reference": "d8ac1de9a9cdfb587ef5e7d0256726014a1ecdd2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hassanzohdy/php-contracts/zipball/9d63f2b83e1d042b04075a3deab953e27f5a61ad",
-                "reference": "9d63f2b83e1d042b04075a3deab953e27f5a61ad",
+                "url": "https://api.github.com/repos/hassanzohdy/php-contracts/zipball/d8ac1de9a9cdfb587ef5e7d0256726014a1ecdd2",
+                "reference": "d8ac1de9a9cdfb587ef5e7d0256726014a1ecdd2",
                 "shasum": ""
             },
             "type": "library",
@@ -28,7 +28,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A list of php interfaces to be implemented for learning people",
-            "time": "2019-09-23T11:11:51+00:00"
+            "time": "2019-09-25T11:11:10+00:00"
         },
         {
             "name": "symfony/http-foundation",

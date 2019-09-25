@@ -3,17 +3,18 @@ namespace Core;
 
 use Core\AppReflector;
 use Core\Http\Request;
-
-class Route
+use HZ\Contracts\Http\RouterInterface;
+class Route 
 {   
     public $routes = [];
     public $root ;
     public $currentUrl;
 
-     /**
+    /**
      * Construct  of the class
+     * 
      * making new request object
-     */
+    */
     public function __construct()
     {
         $this->request = new Request();
@@ -32,6 +33,7 @@ class Route
         return  str_replace($this->root,"",$this->currentUrl); 
     }
         
+
     
     /**
      * add route to array of the routes of the app 
@@ -54,7 +56,6 @@ class Route
      */
     public function load()
     {   
-        // pred($this->routes);
         foreach ($this->routes as  $route) {
             if($this->isMatching($route)){
                 return $this->controllerTriger($route[2]);         
@@ -104,6 +105,8 @@ class Route
         return $matches;
     }
 
+
+
     /**
      * Split up action into class and function then call the function
      *
@@ -125,4 +128,5 @@ class Route
 
         call_user_func_array(array($classNamespace,$classFunction,),$arg);  
     }
+
 }

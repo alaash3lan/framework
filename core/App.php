@@ -1,6 +1,6 @@
 <?php
 namespace Core;
-use Core\Route;
+use Core\Http\Router;
 use Core\Http\Request;
 class App 
 {   
@@ -13,7 +13,7 @@ class App
      */
     public function __construct() 
     {
-        $this->router     = new Route();
         $this->request   =   new Request();
+        $this->router     = new Router($this->request);
     }
 }

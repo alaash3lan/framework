@@ -1,7 +1,7 @@
 <?php
 namespace Core\Http;
 use HZ\Contracts\Http\RequestInterface ;
-use Core\Session;
+use Core\Storage\Session;
 use Core\Http\Validator;
 
 class Request implements RequestInterface
@@ -191,4 +191,47 @@ class Request implements RequestInterface
             if ($this->has($key)) $this->session->store($key,$this->data()[$key]);
         }        
     }
+
+
+      /**
+     * Determine if current request is served by https request
+     * 
+     * @return bool
+     */
+    public function isSecure(): bool
+    {
+      return !empty($_SERVER['HTTPS']);
+    }
+
+
+       /**
+     * Get current ip
+     * 
+     * @return string
+     */
+    public function ip() :string
+    {
+        if(!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            //ip from share internet
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            //ip pass from proxy
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else{
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        return $ip;
+    }
+
+
+     /**
+     * Get user agent
+     * 
+     * @return string
+     */
+    public function userAgent():string
+    {
+       return $_SERVER['HTTP_USER_AGENT'];
+    }
+    
 }

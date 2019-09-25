@@ -1,23 +1,33 @@
 <?php
-namespace Core;
+namespace Core\Http;
 
 use Core\AppReflector;
 use Core\Http\Request;
 use HZ\Contracts\Http\RouterInterface;
-class SecondRoute implements RouterInterface
+class Router implements RouterInterface
 {   
+    //available routes
     public $routes = [];
-    public $root ;
+
+    // the root of app
+    public $root;
+
+    // current url of the app
     public $currentUrl;
+
+    // data of current working route
     public $currentRoute = [];
+
+
+
+
 
      /**
      * Construct  of the class
-     * making new request object
-     */
-    public function __construct()
+     **/
+    public function __construct(Request $request)
     {
-        $this->request = new Request();
+        $this->request = $request;
         $this->root = str_replace("/index.php","",$_SERVER["SCRIPT_NAME"]);
         $this->currentUrl =  $this->request->url();
     }
@@ -112,20 +122,12 @@ class SecondRoute implements RouterInterface
      */
     private function add (string $method,string $route,string $action )
     {   
-        $this->routes[]= [$method,$route,$action];
+        // $this->routes[]= [$method,$route,$action];
+        $this->routes[]= ["method" => $method,
+                          "route" => $route,
+                         "action" => $action];
     }
     
-
-    /**
-     * get current route
-     *
-     * @return string
-     */
-    private function CurrentRoute(): string
-    {
-        return  str_replace($this->root,"",$this->currentUrl); 
-    }
-        
 
     
 
@@ -138,10 +140,11 @@ class SecondRoute implements RouterInterface
         foreach ($this->routes as  $route) {
             if($this->isMatching($route)){
                 $this->currentRoute = $route;
-                return $this->controllerTriger($route[2]);         
+                return $this->controllerTrigger($route["action"]);         
             }           
         }
-       return  view("error");
+        throw new \Exception("Error Processing Request", 1);
+       
     }
 
     /**
@@ -152,8 +155,8 @@ class SecondRoute implements RouterInterface
      */
     private function isMatching(array $route)
     {
-      $pattern =  $this->generateRoutePattern($route[1]);
-      return $_SERVER['REQUEST_METHOD'] == strtoupper($route[0]) & preg_match($pattern, $this->CurrentRoute());
+      $pattern =  $this->generateRoutePattern($route["route"]);
+      return $_SERVER['REQUEST_METHOD'] == strtoupper($route["method"]) & preg_match($pattern, $this->request->route());
     }
 
 
@@ -191,7 +194,7 @@ class SecondRoute implements RouterInterface
      * @param [type] $action
      * @return void
      */
-    private function controllerTriger($action)
+    private function controllerTrigger($action)
     {
         list($class,$classFunction) = explode("@",$action);
         $classNamespace = "App\Controllers\{$class}";

@@ -1,8 +1,9 @@
 <?php
 
 
-$app->router->add("get","/home","HomeController@index");
-$app->router->add("post","/home","HomeController@test");
+// $app->router->add("get","/home","HomeController@index");
+$app->router->get("/home","HomeController@index");
+
 
 
 
