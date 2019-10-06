@@ -10,15 +10,14 @@ class HomeController extends Controller
 
     public  function index(Request $request)
     {   
-         view("index","name");
+     print $this->view->render("error");     
     }
 
         
     public  function test(Request $request)
     {      
-        $s = new Session();
-        $request->flashOnly(["username","psw"]);
-       var_dump($s->all());        
+
+
     }
 }
 

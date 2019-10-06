@@ -4,7 +4,8 @@
         "App\\": "app",
         "Core\\": "core"
        
-      }
+      },
+      "files": ["core/helpers.php"]
     },
     "require": {
         "hassanzohdy/php-contracts": "^1.0",

@@ -6,9 +6,22 @@ use Core\Http\Validator;
 
 class Request implements RequestInterface
 {
-    // the current root of app
+    // the current root of app  $root/..
     public $root;
-    public $session;
+    
+
+    /**
+     * current route 
+     * @var string
+     */
+    public $route;
+
+    /**
+     * the query strings of url
+     *
+     * @var array
+     */
+    private $queries = [];
 
     /**
      * Request constructor.
@@ -16,9 +29,8 @@ class Request implements RequestInterface
      */
     public function __construct()
     {
-        $this->root = str_replace("/index.php","",$_SERVER["SCRIPT_NAME"]);
-        $this->session = new Session();
-
+        $this->root =  dirname($_SERVER["SCRIPT_NAME"]);
+        $this->prepareUrl();
     }
 
     /**
@@ -81,12 +93,58 @@ class Request implements RequestInterface
     }
 
     /**
-     * {@inheritDoc}
+     * prepare the url
      */
-    public function route(): string
-    {
-        return  str_replace($this->root,"",$_SERVER["REQUEST_URI"]);
+    public function prepareUrl()
+    { 
+        $requestUri = $_SERVER['REQUEST_URI'];
+
+        if (!empty($_SERVER['QUERY_STRING'])) {
+            list($requestUri) = explode('?' , $requestUri);
+            $this->saveQueryString();
+        } 
+        
+        $this->route =   rtrim(preg_replace('#^'.$this->root.'#', '' , $requestUri), '/');     
     }
+
+
+    /**
+     * get the current route
+     *
+     * @return string
+     */
+    public function route() :string
+    {
+       return $this->route;
+    }
+
+    /**
+     * save generate var of query string
+     *
+     * @param [type] $queryString
+     * @return void
+     */
+    public function saveQueryString()
+    {
+        $queries = [];
+        parse_str($_SERVER['QUERY_STRING'], $queries);
+        $this->queries = $queries;
+    }
+
+    
+    /**
+     * return query string valu of given key, 
+     * the default if no $key given will return all queris in an array
+     *
+     * @param string $key
+     * @return void
+     */
+    public function query(string $key = "allQueris")
+    {
+        if ($key == "allQueris" ) return $this->queries;
+        return $this->queries[$key];    
+    }
+
 
     /**
      * Validate the given inputs by the given rules
@@ -104,7 +162,7 @@ class Request implements RequestInterface
 
         foreach ($rules as $key => $value) {
             $values = explode("|",$value);
-            
+        // whoops    
             foreach ($values as $rule) {
                 if(strpos($rule,":")){
                     $array = explode(":",$rule);
@@ -121,8 +179,8 @@ class Request implements RequestInterface
         if(!empty($errors)) {
             return $errors;
         } else {
-             return null;
-            }
+            return null;
+        }
     }
 
 
@@ -174,8 +232,7 @@ class Request implements RequestInterface
         $data = $this->data();
         foreach ($data as $key => $value) {
            $this->session->store($key,$value);
-        }
-        
+        }     
     }
 
 

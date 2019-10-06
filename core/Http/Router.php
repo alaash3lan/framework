@@ -4,6 +4,7 @@ namespace Core\Http;
 use Core\AppReflector;
 use Core\Http\Request;
 use HZ\Contracts\Http\RouterInterface;
+use Core\App;
 class Router implements RouterInterface
 {   
     //available routes
@@ -19,15 +20,13 @@ class Router implements RouterInterface
     public $currentRoute = [];
 
 
-
-
-
      /**
      * Construct  of the class
      **/
-    public function __construct(Request $request)
+    public function __construct(App $app)
     {
-        $this->request = $request;
+        $this->app = $app;
+        $this->request = $app->request;
         $this->root = str_replace("/index.php","",$_SERVER["SCRIPT_NAME"]);
         $this->currentUrl =  $this->request->url();
     }
@@ -137,7 +136,9 @@ class Router implements RouterInterface
      */
     public function scan()
     {   
+       
         foreach ($this->routes as  $route) {
+            
             if($this->isMatching($route)){
                 $this->currentRoute = $route;
                 return $this->controllerTrigger($route["action"]);         
@@ -197,8 +198,7 @@ class Router implements RouterInterface
     private function controllerTrigger($action)
     {
         list($class,$classFunction) = explode("@",$action);
-        $classNamespace = "App\Controllers\{$class}";
-        $classNamespace = str_replace(["{","}"],"",$classNamespace);
+        $classNamespace = "App\\Controllers\\$class";
         $app = new AppReflector($classNamespace);
         $params =  $app->getMethodParams($classFunction);
         $arg = [];
@@ -206,8 +206,8 @@ class Router implements RouterInterface
         foreach ($params as $param) {
             $arg[] = new $param;
         }
-
-        call_user_func_array(array($classNamespace,$classFunction,),$arg);  
+        $class = new $classNamespace($this->app);
+        call_user_func_array([$class,$classFunction,],$arg);  
     }
 
       /**
