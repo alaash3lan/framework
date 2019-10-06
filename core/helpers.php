@@ -1,22 +1,29 @@
 <?php
 use Core\Request;
+use Core\App;
 
 function redirect($url)
 {
-    $root = str_replace("/index.php","",$_SERVER["SCRIPT_NAME"]);
+    $root = dirname($_SERVER["SCRIPT_NAME"]);
     header("Location: {$root}/{$url}");
     die();
 }
 
+
+ function app(File $file = null)
+{     
+    return App::getInstance();
+}
 /**
  * view static page
  *
  * @param string $path
- * @param [mixed] $data
+ * @param array $data
  * @return void
  */
-function view(string $path , $data = null) {       
-    require "./static/views/".$path.".php";
+function view(string $path ,array $data = []) {  
+    
+    app()->view->render($path,$data);   
 }
 
 /**
