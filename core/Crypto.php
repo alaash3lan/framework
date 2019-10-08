@@ -3,7 +3,16 @@ namespace Core;
 
 class Crypto 
 { 
-    public $key; 
+
+    /**
+     * The cipher method
+     */
+    const CIPHER = "aes-256-gcm";
+
+    /**
+     * The length of the authentication tag.
+     */
+    const TAG_LENGTH = 16;
 
 
     /**
@@ -13,40 +22,83 @@ class Crypto
      * @param [string] $pass
      * @return string
      */
-    public static function encript($textToEncrypt,string $pass)
+    public static function encript($textToEncrypt,string $password):string
     {   
-      $key = substr(hash('sha256', $pass, true), 0, 32);
-      $cipher = 'aes-256-gcm';
-      $iv_len = openssl_cipher_iv_length($cipher);
-      $tag_length = 16;
-      $iv = openssl_random_pseudo_bytes($iv_len);
-      $tag = ""; // will be filled by openssl_encrypt
-
-     $ciphertext = openssl_encrypt($textToEncrypt, $cipher, $key, OPENSSL_RAW_DATA, $iv, $tag, "", $tag_length);
-     $encrypted = base64_encode($iv.$tag.$ciphertext);
-     return $encrypted;
+        $key = self::key($password);
+        $iv = self::iv();  
+        $tag = ""; // will be filled by openssl_encrypt
+        $ciphertext = openssl_encrypt($textToEncrypt, self::CIPHER, $key, OPENSSL_RAW_DATA, $iv, $tag, "", self::TAG_LENGTH);
+        return self::encode($iv.$tag.$ciphertext);
     }
 
 
     /**
-     * Undocumented function
+     * Generates a string of pseudo-random bytes
+     * @return string
+     */
+    private function iv():string
+    {
+        $ivLen = openssl_cipher_iv_length(self::CIPHER);
+        return openssl_random_pseudo_bytes($ivLen);
+    }
+
+
+    /**
+     * generate hashed key 
+     * @param string $password
+     * @return string
+     */
+    private function key(string $password):string
+    {
+        return substr(hash('sha256', $password, true), 0, 32);
+    }
+
+
+    /**
+     * Encodes data with MIME base64
+     *
+     * @param string $string
+     * @return string
+     */
+    private function encode(string $string):string
+    {
+        return  base64_encode($string);
+    }
+
+
+    /**
+     * Decodes data with MIME base64 
+     *
+     * @param string $string
+     * @return string
+     */
+    private function decode(string $string):string
+    {
+        return  base64_decode($string);
+    }
+
+    /**
+     * decript a string 
      *
      * @param [string] $textToDecrypt
      * @param [string] $password
      * @return string
      */
-    public function decript(string $textToDecrypt,string $password)
+    public function decript(string $textToDecrypt,string $password):string 
     {
-       
-        $encrypted = base64_decode($textToDecrypt);
-        $key = substr(hash('sha256', $password, true), 0, 32);
-        $cipher = 'aes-256-gcm';
-        $iv_len = openssl_cipher_iv_length($cipher);
-        $tag_length = 16;
+        $encrypted = self::decode($textToDecrypt);
+        $key = self::key($password);
+        $iv_len = openssl_cipher_iv_length(self::CIPHER);
         $iv = substr($encrypted, 0, $iv_len);
-        $tag = substr($encrypted, $iv_len, $tag_length);
-        $ciphertext = substr($encrypted, $iv_len + $tag_length) ;
-        return  openssl_decrypt($ciphertext, $cipher, $key, OPENSSL_RAW_DATA, $iv, $tag);
+        $tag = substr($encrypted, $iv_len, self::TAG_LENGTH);
+        $ciphertext = substr($encrypted, $iv_len + self::TAG_LENGTH) ;
+        return  openssl_decrypt($ciphertext, self::CIPHER, $key, OPENSSL_RAW_DATA, $iv, $tag);
         
     }
 }
+
+$pass = "alaa";
+$c =  Crypto::encript("i'm here",$pass);
+print Crypto::decript($c,"alaa");
+
+
