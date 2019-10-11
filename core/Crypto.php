@@ -14,7 +14,12 @@ class Crypto
      */
     const TAG_LENGTH = 16;
 
+    private $publicKey;
 
+    public function __constrruct()
+    {
+        $this->creatKey();     
+    }
     /**
      * encript a string with key 
      *
@@ -22,13 +27,14 @@ class Crypto
      * @param [string] $pass
      * @return string
      */
-    public static function encript($textToEncrypt,string $password):string
-    {   
-        $key = self::key($password);
-        $iv = self::iv();  
+    public  function encript(string $value):string
+    {  
+        $value  =  json_encode($value);
+        $key = $this->publicKey;
+        $iv = $this->iv();  
         $tag = ""; // will be filled by openssl_encrypt
-        $ciphertext = openssl_encrypt($textToEncrypt, self::CIPHER, $key, OPENSSL_RAW_DATA, $iv, $tag, "", self::TAG_LENGTH);
-        return self::encode($iv.$tag.$ciphertext);
+        $ciphertext = openssl_encrypt($value, self::CIPHER, $key, OPENSSL_RAW_DATA, $iv, $tag, "", self::TAG_LENGTH);
+        return $this->encode($iv.$tag.$ciphertext);
     }
 
 
@@ -43,15 +49,6 @@ class Crypto
     }
 
 
-    /**
-     * generate hashed key 
-     * @param string $password
-     * @return string
-     */
-    private function key(string $password):string
-    {
-        return substr(hash('sha256', $password, true), 0, 32);
-    }
 
 
     /**
@@ -77,6 +74,26 @@ class Crypto
         return  base64_decode($string);
     }
 
+    private function creatKey()
+    {
+        $config = array(
+            "digest_alg" => "sha256",
+            "private_key_bits" => 4096,
+            "private_key_type" => OPENSSL_KEYTYPE_RSA,
+        );
+        
+        // Create the private and public key
+        $res = openssl_pkey_new($config);
+        
+        // Extract the private key into $private_key
+        openssl_pkey_export($res, $private_key);
+        
+        // Extract the public key into $public_key
+        $public_key = openssl_pkey_get_details($res);
+        $this->publicKey = $public_key["key"];
+
+    }
+
     /**
      * decript a string 
      *
@@ -84,21 +101,15 @@ class Crypto
      * @param [string] $password
      * @return string
      */
-    public function decript(string $textToDecrypt,string $password):string 
+    public function decript(string $textToDecrypt):string
     {
-        $encrypted = self::decode($textToDecrypt);
-        $key = self::key($password);
+        $encrypted = $this->decode($textToDecrypt);
+        $key = $this->publicKey;
         $iv_len = openssl_cipher_iv_length(self::CIPHER);
         $iv = substr($encrypted, 0, $iv_len);
         $tag = substr($encrypted, $iv_len, self::TAG_LENGTH);
         $ciphertext = substr($encrypted, $iv_len + self::TAG_LENGTH) ;
-        return  openssl_decrypt($ciphertext, self::CIPHER, $key, OPENSSL_RAW_DATA, $iv, $tag);
+        return  json_decode(openssl_decrypt($ciphertext, self::CIPHER, $key, OPENSSL_RAW_DATA, $iv, $tag));
         
     }
 }
-
-$pass = "alaa";
-$c =  Crypto::encript("i'm here",$pass);
-print Crypto::decript($c,"alaa");
-
-
