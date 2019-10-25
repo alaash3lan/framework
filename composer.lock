@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "hassanzohdy/php-contracts",
-            "version": "1.0.11",
+            "version": "1.0.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hassanzohdy/php-contracts.git",
-                "reference": "d8ac1de9a9cdfb587ef5e7d0256726014a1ecdd2"
+                "reference": "814f9f5b44606f8041236b0e422786b616b2d0b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hassanzohdy/php-contracts/zipball/d8ac1de9a9cdfb587ef5e7d0256726014a1ecdd2",
-                "reference": "d8ac1de9a9cdfb587ef5e7d0256726014a1ecdd2",
+                "url": "https://api.github.com/repos/hassanzohdy/php-contracts/zipball/814f9f5b44606f8041236b0e422786b616b2d0b3",
+                "reference": "814f9f5b44606f8041236b0e422786b616b2d0b3",
                 "shasum": ""
             },
             "type": "library",
@@ -28,20 +28,20 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "A list of php interfaces to be implemented for learning people",
-            "time": "2019-09-25T11:11:10+00:00"
+            "time": "2019-10-15T11:17:31+00:00"
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v4.3.4",
+            "version": "v4.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "d804bea118ff340a12e22a79f9c7e7eb56b35adc"
+                "reference": "76590ced16d4674780863471bae10452b79210a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/d804bea118ff340a12e22a79f9c7e7eb56b35adc",
-                "reference": "d804bea118ff340a12e22a79f9c7e7eb56b35adc",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/76590ced16d4674780863471bae10452b79210a5",
+                "reference": "76590ced16d4674780863471bae10452b79210a5",
                 "shasum": ""
             },
             "require": {
@@ -83,20 +83,20 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2019-08-26T08:55:16+00:00"
+            "time": "2019-10-04T19:48:13+00:00"
         },
         {
             "name": "symfony/mime",
-            "version": "v4.3.4",
+            "version": "v4.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mime.git",
-                "reference": "987a05df1c6ac259b34008b932551353f4f408df"
+                "reference": "32f71570547b91879fdbd9cf50317d556ae86916"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mime/zipball/987a05df1c6ac259b34008b932551353f4f408df",
-                "reference": "987a05df1c6ac259b34008b932551353f4f408df",
+                "url": "https://api.github.com/repos/symfony/mime/zipball/32f71570547b91879fdbd9cf50317d556ae86916",
+                "reference": "32f71570547b91879fdbd9cf50317d556ae86916",
                 "shasum": ""
             },
             "require": {
@@ -142,7 +142,7 @@
                 "mime",
                 "mime-type"
             ],
-            "time": "2019-08-22T08:16:11+00:00"
+            "time": "2019-09-19T17:00:15+00:00"
         },
         {
             "name": "symfony/polyfill-intl-idn",

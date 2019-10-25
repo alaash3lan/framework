@@ -10,7 +10,7 @@ class HomeController extends Controller
 
     public  function index(Request $request)
     {   
-     print $this->view->render("error");     
+     print $this->view->render("welcome",["name"=>"alaa"]);     
     }
 
         

@@ -10,7 +10,7 @@ function redirect($url)
 }
 
 
- function app(File $file = null)
+function app(File $file = null)
 {     
     return App::getInstance();
 }

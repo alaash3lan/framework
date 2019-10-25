@@ -1,7 +1,7 @@
 <?php
 namespace Core;
-
-class Crypto 
+use HZ\Contracts\Encryption\EncrypterInterface;
+class Crypto implements EncrypterInterface
 { 
 
     /**
@@ -25,9 +25,9 @@ class Crypto
      *
      * @param [string] $textToEncrypt
      * @param [string] $pass
-     * @return string
+     * @return string|array
      */
-    public  function encript(string $value):string
+    public  function encript($value):string
     {  
         $value  =  json_encode($value);
         $key = $this->publicKey;
@@ -74,6 +74,12 @@ class Crypto
         return  base64_decode($string);
     }
 
+
+    /**
+     *creating public key
+     *
+     * @return void
+     */
     private function creatKey()
     {
         $config = array(
@@ -101,7 +107,7 @@ class Crypto
      * @param [string] $password
      * @return string
      */
-    public function decript(string $textToDecrypt):string
+    public function decript(string $textToDecrypt)
     {
         $encrypted = $this->decode($textToDecrypt);
         $key = $this->publicKey;
